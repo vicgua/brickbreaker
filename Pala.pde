@@ -35,6 +35,7 @@ class Pala extends Rectangulo {
         ball.vx = map(ball.x, x + w * .6, x + w, 0, 4);
       }
       lastCollided = true;
+      if (ball.act) palaSound.play(1);
     } else if (!col) {
       lastCollided = false;
     }

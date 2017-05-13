@@ -9,7 +9,9 @@ class Vidas extends Text {
 
   void subsVidas(int v) {
     if (vidas - v <= 0) { 
-      gameOver(); 
+      gameOver();
+    } else if (v == 1) {
+      failSound.play(1);
     }
     vidas -= v;
     message = Integer.toString(vidas);

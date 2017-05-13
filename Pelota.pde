@@ -30,9 +30,11 @@ class Pelota {
       } if (x < r) {
         x = r;
         vx *= -1;
+        wallSound.play(1);
       } else if (x > (width - r)) {
         x = width - r;
         vx *= -1;
+        wallSound.play(1);
       }
     } else {
       x = pala.x + pala.w / 2;

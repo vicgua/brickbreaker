@@ -6,9 +6,8 @@ Pala pala; //objecte raqueta
 Brick[][] bricks;
 float dx, dy;
 int filas, columnas;
-
 Minim minim;
-AudioPlayer brickSound;
+AudioPlayer brickSound, wallSound, palaSound, failSound, gameOverSound;
 
 PFont courierNew;
 float xPelota, yPelota, rPelota;
@@ -33,11 +32,14 @@ void init() {
   float palax, palay; //posició
   float palav; //velocitat;
   float palaw, palah; //mida
-  color palac; //color de la raqueta
 
   courierNew = loadFont("CourierNewPSMT-48.vlw");
   minim = new Minim(this);
   brickSound = minim.loadFile("brick.wav");
+  wallSound = minim.loadFile("wall.wav");
+  palaSound = minim.loadFile("pala.wav");
+  failSound = minim.loadFile("fail.wav");
+  gameOverSound = minim.loadFile("game_over.wav");
 
   palaw = 100;
   palah = 20;

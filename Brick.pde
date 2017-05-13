@@ -2,7 +2,7 @@ class Brick extends Rectangulo {
   PImage img;
   boolean alive;
   Brick(float x, float y, float w, float h, PImage img) {
-    super(x, y, w, h);
+    super(x, y, h, w);
     this.img = img;
     this.alive = true;
     this.c = #BF8040;
@@ -47,6 +47,7 @@ class Brick extends Rectangulo {
       ball.vy *= -1;// arriba y abajo
       alive = false;
       marcador.addScore();
-    }
+    } else return;
+    brickSound.play(1);
   }
 }
