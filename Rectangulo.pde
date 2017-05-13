@@ -5,7 +5,7 @@ class Rectangulo {
   boolean useStroke;
   color s;
 
-  Rectangulo(float x, float y, float h, float w) {
+  Rectangulo(float x, float y, float w, float h) {
     this.x = x;
     this.y = y;
     this.h = h;

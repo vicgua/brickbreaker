@@ -1,9 +1,7 @@
 class Brick extends Rectangulo {
-  PImage img;
   boolean alive;
-  Brick(float x, float y, float w, float h, PImage img) {
-    super(x, y, h, w);
-    this.img = img;
+  Brick(float x, float y, float w, float h) {
+    super(x, y, w, h);
     this.alive = true;
     this.c = #BF8040;
   }

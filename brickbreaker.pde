@@ -46,13 +46,12 @@ void init() {
   palax = (width - palaw)/2;
   palay = height-30-palah;
   palav = 0;
-  pala = new Pala(palax, palay, palah, palaw, palav);
+  pala = new Pala(palax, palay, palaw, palah, palav);
 
   float xBrick, yBrick;
   float wBrick, hBrick;
-  PImage imgBrick;
 
-  imgBrick = loadImage("brick.png");
+  //imgBrick = loadImage("brick.png");
   wBrick = 50;
   hBrick = 20;
   dx = dy = 2;
@@ -66,7 +65,7 @@ void init() {
     for (int j = 0; j < columnas; j++) {
       float x = xBrick + j * (wBrick + dx);
       float y = yBrick + i * (hBrick + dy);
-      bricks[i][j] = new Brick(x, y, wBrick, hBrick, imgBrick);
+      bricks[i][j] = new Brick(x, y, wBrick, hBrick);
     }
   }
 

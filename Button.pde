@@ -13,15 +13,15 @@ abstract class Button extends Rectangulo {
 
   void show() {
     super.show();
-    txt.show((x + (x + dx)) / 2, (y + (y + dy)) / 2);
+    txt.show((x + (x + w)) / 2, (y + (y + h)) / 2);
   }
 
   boolean inside(float x, float y) {
     return (
       (x >= this.x) &&
-      (x <= (this.x + dx)) &&
+      (x <= (this.x + w)) &&
       (y >= this.y) &&
-      (y <= (this.y + dy))
+      (y <= (this.y + h))
       );
   }
 
