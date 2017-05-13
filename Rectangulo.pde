@@ -1,4 +1,4 @@
-abstract class Rectangulo {
+class Rectangulo {
   float x, y;
   float h, w;
   color c;
@@ -22,6 +22,4 @@ abstract class Rectangulo {
     else noStroke();
     rect(x, y, w, h);
   }
-
-  abstract void collided(Pelota ball);
 }

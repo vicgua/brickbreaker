@@ -1,24 +1,18 @@
-abstract class Button {
-  float x, y, dx, dy;
-  color c;
+abstract class Button extends Rectangulo {
   Text txt;
 
-  Button(float x, float y, float dx, float dy, color c, Text txt) {
-    this.x = x;
-    this.y = y;
-    this.dx = dx;
-    this.dy = dy;
+  Button(float x, float y, float w, float h, color c, Text txt) {
+    super(x, y, w, h);
     this.c = c;
+    this.useStroke = true;
+    this.s = #000000;
     txt.alignX = CENTER;
     txt.alignY = CENTER;
     this.txt = txt;
   }
 
   void show() {
-    rectMode(CORNER);
-    fill(c);
-    stroke(#000000);
-    rect(x, y, dx, dy);
+    super.show();
     txt.show((x + (x + dx)) / 2, (y + (y + dy)) / 2);
   }
 

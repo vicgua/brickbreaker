@@ -131,6 +131,7 @@ void gameOver() {
   gameOverTxt.show(width / 2, height / 2);
   gameOverButton = new GameOverButton();
   gameOverButton.show();
+  gameOverSound.play(1);
 }
 
 void splash() {
