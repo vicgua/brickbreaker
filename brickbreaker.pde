@@ -1,5 +1,7 @@
 import ddf.minim.*;
-final boolean DEBUG = true;
+// DEBUG permet pausar la partida prement 'p'.
+// Mentre estigui pausada, mostrarà la posició del ratolí i de la pilota
+final boolean DEBUG = false;
 
 Pala pala; //objecte raqueta
 
