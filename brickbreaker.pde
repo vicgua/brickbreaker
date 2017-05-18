@@ -1,4 +1,5 @@
 import ddf.minim.*;
+import java.util.*;
 // DEBUG permet pausar la partida prement 'p'.
 // Mentre estigui pausada, mostrarà la posició del ratolí i de la pilota
 final boolean DEBUG = false;
@@ -17,9 +18,12 @@ float vxPelota, vyPelota;
 color cPelota;
 boolean actPelota;
 Pelota ball;
+List<GhostPelota> ghostBalls;
 Score marcador;
 Vidas vidas;
 boolean looping = true;
+float xBrick, yBrick;
+float wBrick, hBrick;
 
 Button gameOverButton = null;
 Button splashButton = null;
@@ -28,6 +32,18 @@ void setup() {
   size(1000, 600);
   init();
   splash();
+}
+
+void spawnLadrillos() {
+  bricks = new Brick[filas][];
+  for (int i = 0; i < filas; i++) {
+    bricks[i] = new Brick[columnas];
+    for (int j = 0; j < columnas; j++) {
+      float x = xBrick + j * (wBrick + dx);
+      float y = yBrick + i * (hBrick + dy);
+      bricks[i][j] = new Brick(x, y, wBrick, hBrick);
+    }
+  }
 }
 
 void init() {
@@ -50,9 +66,6 @@ void init() {
   palav = 0;
   pala = new Pala(palax, palay, palaw, palah, palav);
 
-  float xBrick, yBrick;
-  float wBrick, hBrick;
-
   //imgBrick = loadImage("brick.png");
   wBrick = 50;
   hBrick = 20;
@@ -61,15 +74,7 @@ void init() {
   columnas = (int)((width*.9) / (wBrick + dx));
   xBrick = (width - columnas * (wBrick + dx)) / 2;
   yBrick = 50;
-  bricks = new Brick[filas][];
-  for (int i = 0; i < filas; i++) {
-    bricks[i] = new Brick[columnas];
-    for (int j = 0; j < columnas; j++) {
-      float x = xBrick + j * (wBrick + dx);
-      float y = yBrick + i * (hBrick + dy);
-      bricks[i][j] = new Brick(x, y, wBrick, hBrick);
-    }
-  }
+  spawnLadrillos();
 
   rPelota = 7.5;
   cPelota = color(18, 209, 255);
@@ -78,21 +83,14 @@ void init() {
   ball = new Pelota(xPelota, yPelota, rPelota, cPelota, -3, false);
   marcador = new Score();
   vidas = new Vidas();
+  ghostBalls = new ArrayList<GhostPelota>();
+  print(filas * columnas, filas * columnas / 20);
 }
 
 void draw() {
   if (!looping) return;
   background(255);
   //control de la pala
-
-  pala.move();
-  pala.show();
-  ball.move();
-  ball.show();
-  marcador.show();
-  vidas.show();  
-
-  pala.collided(ball);
 
   for (int i = 0; i < filas; i++) {
     for (int j = 0; j < columnas; j++) {
@@ -101,6 +99,44 @@ void draw() {
       brick.collided(ball);
     }
   }
+
+  int gbNum = marcador.score / (filas * columnas / 20);
+  
+  color ghostColor = color(red(cPelota), green(cPelota), blue(cPelota), .6 * 255);
+  while (ghostBalls.size() < gbNum) {
+    ghostBalls.add(new GhostPelota(xPelota, yPelota, rPelota, ghostColor, -3));
+  }
+  pala.move();
+  pala.show();
+  ball.move();
+  ball.show();
+  
+  for (GhostPelota gb : ghostBalls) {
+    gb.move();
+    gb.show();
+  }
+  
+  marcador.show();
+  vidas.show();  
+
+  pala.collided(ball);  
+  
+
+  boolean foundAlive = false;
+
+  for (int i = 0; i < filas; i++) {
+    for (int j = 0; j < columnas; j++) {
+      Brick brick = bricks[i][j];
+      if (brick.alive) { 
+        foundAlive = true; 
+        break;
+      }
+    }
+    if (foundAlive) {
+      break;
+    }
+  }
+  if (!foundAlive) spawnLadrillos();
 }
 
 void keyPressed() {
